@@ -13,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -28,6 +29,7 @@ public class AuthServiceImpl implements AuthService {
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
 
+    @Transactional
     @Override
     public void registerUser(UserRegisterRequest request) {
 
@@ -54,14 +56,15 @@ public class AuthServiceImpl implements AuthService {
 
         emailService.sendEmail(
                 user.getEmail(),
-                "Cuenta Registrada!",
-                "Hola " + user.getFullName() + ",\n\n" +
+                "Account Registered!",
+                "Hi " + user.getFullName() + ",\n\n" +
                         "Para completar tu registro, haz clic en el siguiente enlace para asignar tu contraseña:\n" +
                         "http://localhost:8080/api/auth/assign-password?token= " + token.getToken() + "\n\n" +
                         "¡Saludos!"
         );
     }
 
+    @Transactional
     @Override
     public void assignPassword(AssignPasswordRequest request) {
 
@@ -83,11 +86,12 @@ public class AuthServiceImpl implements AuthService {
         emailService.sendEmail(
                 user.getEmail(),
                 "Contraseña Asignada!",
-                "Hola " + user.getFullName() + ",\n\nTu contraseña ha sido actualizada exitosamente." +
+                "Hola " + user.getFullName() + ",\n\nTu contraseña ha sido asignada exitosamente." +
                         "\n\nSi no realizaste este cambio, por favor contacta con soporte." +
                         "¡Saludos!"
         );
     }
+
 
     @Override
     public LoginResponse login(LoginRequest loginRequest) {
@@ -112,6 +116,7 @@ public class AuthServiceImpl implements AuthService {
         return new LoginResponse(jwt);
     }
 
+    @Transactional
     @Override
     public void forgotPassword(ForgotPasswordRequest request) {
 
@@ -128,10 +133,18 @@ public class AuthServiceImpl implements AuthService {
 
         authRepository.save(token);
 
-        emailService.sendEmail(user.getEmail(), "Recuperación de contraseña",
-                "Resetear contraseña: http://localhost:8080/api/auth/reset-password?token=" + token.getToken());
+        emailService.sendEmail(
+                user.getEmail(),
+                "Olvidaste tu Contraseña?",
+                "Hola " + user.getFullName() + ",\n\nRecibimos una solicitud para recuperar tu contraseña. \n" +
+                        "Si fuiste tú, haz clic en el siguiente enlace para crear una nueva: " +
+                        "http://localhost:8080/api/auth/reset-password?token= " + token.getToken() +
+                        "\n\nSi no realizaste este cambio, ignoralo, o por favor contacta con soporte." +
+                        "¡Saludos!"
+        );
     }
 
+    @Transactional
     @Override
     public void resetPassword(ResetPasswordRequest request) {
 
@@ -148,5 +161,13 @@ public class AuthServiceImpl implements AuthService {
 
         userRepository.save(user);
         authRepository.save(token);
+
+        emailService.sendEmail(
+                user.getEmail(),
+                "Contraseña Actualizada!",
+                "Hola " + user.getFullName() + ",\n\nTu contraseña ha sido actualizada exitosamente." +
+                        "\n\nSi no realizaste este cambio, por favor contacta con soporte." +
+                        "¡Saludos!"
+        );
     }
 }

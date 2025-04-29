@@ -28,6 +28,7 @@ public class AuthController {
     @PostMapping("/assign-password")
     @ResponseStatus(HttpStatus.OK)
     public String assignPassword (@RequestBody AssignPasswordRequest request){
+
         authService.assignPassword(request);
         return "The new password has been assigned to the user ";
     }
@@ -35,20 +36,24 @@ public class AuthController {
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public LoginResponse login (@RequestBody LoginRequest request){
-       return authService.login(request);
+
+        return authService.login(request);
     }
 
     @PostMapping("/forgot-password")
     @ResponseStatus(HttpStatus.OK)
-    public void forgotPassword (@RequestBody ForgotPasswordRequest request){
+    public String forgotPassword (@RequestBody ForgotPasswordRequest request){
         authService.forgotPassword(request);
+        return "An email has been sent to you to reset your password.";
 
     }
 
     @PostMapping("/reset-password")
     @ResponseStatus(HttpStatus.OK)
-    public void recoverPassword (@RequestBody ResetPasswordRequest request){
+    public String resetPassword (@RequestBody ResetPasswordRequest request){
+
         authService.resetPassword(request);
+        return "Your password has been updated successfully.";
 
     }
 }
