@@ -49,4 +49,81 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 
 ## 📄 Documentación
 
-Una vez el proyecto esté corriendo, puedes acceder a la documentación en la página oficial de openApi:
+Una vez el proyecto esté corriendo localmente, puedes acceder a la documentación interactiva generada con OpenAPI (Swagger UI) en la siguiente URL: http://localhost:8080/swagger-ui/index.html#/
+
+
+## 📬 Ejemplos de API Requests usando "Postman" para las Funcionalidades requeridas
+
+
+### 🔹 Registro de Usuario
+  
+    ```http
+    [POST] localhost:8080/api/auth/register
+    Body (JSON):
+      {
+        "fullName": "Juan Pérez",
+        "email": "juanperez@example.com"
+      }
+  
+    [Respuesta]: Mensaje en Postman / Mensaje + token de Asignación via Email.
+
+
+### 🔐 Asignación de Contraseña
+
+    ```http
+    [POST] localhost:8080/api/auth/assign-password
+    Body (JSON):
+
+      {
+        "token": "7b95bcd4-d647-4ef1-92bf-a33cbff5c5f0",
+        "newPassword": "juan_contraseña_segura"
+      }
+
+    [Respuesta]: Mensaje en Postman / Mensaje via Email.
+
+### 🔑 Login que Valida un Usuario y devuelve Token de acceso
+
+    ```http
+    [POST] localhost:8080/api/auth/login
+    Body (JSON):
+
+      {
+        "email": "juanperez@example.com",
+        "password": "juan_contraseña_segura"
+      }
+
+    [Respuesta]: Token de acceso temporal.
+
+### 🔄 Endpoint que en caso de Olvidar la Contraseña
+
+    ```http
+    [POST] localhost:8080/api/auth/forgot-password
+    Body (JSON):
+
+      {
+        "email": "juanperez@example.com"
+      }
+
+    [Respuesta]: Mensaje en Postman / Mensaje + Token de restauración de Contraseña via Email.
+
+### ✔️ Endpoint para Resetear/Actualizar la Contraseña de un Usuario
+
+    ```http
+    [POST] localhost:8080/api/auth/reset-password
+    Body (JSON):
+
+      {
+        "token": "03a6c2d1-8611-4db3-9ad3-15f7067401ac",
+        "newPassword": "juan_contraseña_segura_actualizada"
+      }
+
+    [Respuesta]: Mensaje en Postman / Mensaje via Email.
+
+## ⚙️ Variables de Entorno
+
+Este proyecto utiliza variables de entorno para proteger información sensible como:
+
+- Credenciales de la base de datos
+- Clave secreta para la firma de tokens JWT
+- Configuración del servidor de correo
+
