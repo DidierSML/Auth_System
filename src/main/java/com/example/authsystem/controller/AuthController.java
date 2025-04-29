@@ -25,21 +25,6 @@ public class AuthController {
         return "User has been registered successfully. Please check your email inbox";
     }
 
-//    @GetMapping("/verify")
-//    @ResponseStatus(HttpStatus.OK)
-//    public String verifyAccount (@RequestParam String token){
-//
-//        sessionService.verifyAccount(token);
-//        return "Credentials has been verified successfully";
-//    }
-
-//    @PostMapping("/confirm-password")
-//    @ResponseStatus(HttpStatus.OK)
-//    public String assignPassword (String token, String newPassword){
-//        sessionService.assignPassword(token, newPassword);
-//        return "Password has been assigned successfully";
-//    }
-
     @PostMapping("/assign-password")
     @ResponseStatus(HttpStatus.OK)
     public String assignPassword (@RequestBody AssignPasswordRequest request){
