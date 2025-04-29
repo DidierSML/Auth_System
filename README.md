@@ -1,8 +1,8 @@
-# Sistema de Autenticación con Spring Boot
+# 💻 Sistema de Autenticación con Spring Boot
 
 Este proyecto es una implementación sencilla de un sistema de autenticación y gestión de usuarios, construido con **Spring Boot** y documentado con **OpenAPI (Swagger)**.
 
-## Funcionalidades
+## ✅  Funcionalidades
 
 - Registro de usuarios con nombre completo y correo electrónico.
 - Envío de un **correo de activación** con token personalizado.
@@ -14,7 +14,7 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 - Protección de endpoints con JWT.
 - Documentación de la API con Swagger UI.
 
-## Tecnologías utilizadas
+## 🚀 Tecnologías utilizadas
 
 - Java 17
 - Spring Boot 3
@@ -24,7 +24,7 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 - MySQL
 - OpenAPI (springdoc-openapi-ui)
 
-## Endpoints principales
+## 🔁 Endpoints principales
 
 | Método | Endpoint                        | Descripción                        |
 |--------|----------------------------------|------------------------------------|
@@ -32,18 +32,18 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 | GET    | `/api/auth/assign-password`     | Asignación de contraseña con token |
 | POST   | `/api/auth/login`               | Inicio de sesión, retorna JWT     |
 
-## Pruebas
+## 📧 Pruebas
 
 - **Mailtrap** fue utilizado como servicio para pruebas de envío de correos electrónicos.
 - **Postman** fue utilizado como herramienta para simular el comportamiento del cliente (frontend).
 
-## Uso
+## 📁 Uso
 
 1. Registrar un usuario enviando su nombre y correo.
 2. Recibirá un correo con un enlace único para establecer su contraseña.
 3. Al establecer la contraseña, el usuario podrá iniciar sesión.
 4. Tras iniciar sesión correctamente, se genera un JWT que permite acceder a los recursos protegidos.
 
-## Documentación
+## 📄 Documentación
 
-Una vez el proyecto esté corriendo, puedes acceder a la documentación en:
+Una vez el proyecto esté corriendo, puedes acceder a la documentación en la página oficial de openApi:
