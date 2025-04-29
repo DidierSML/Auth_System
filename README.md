@@ -45,6 +45,7 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 2. Recibirá un correo con un enlace único para establecer su contraseña.
 3. Al establecer la contraseña, el usuario podrá iniciar sesión.
 4. Tras iniciar sesión correctamente, se genera un JWT que permite acceder a los recursos protegidos.
+5. En caso de olvidar la contraseña, esta puede ser actualizada por el usuario.
 
 ## 📄 Documentación
 
