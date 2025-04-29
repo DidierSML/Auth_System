@@ -26,11 +26,13 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 
 ## 🔁 Endpoints principales
 
-| Método | Endpoint                        | Descripción                        |
-|--------|----------------------------------|------------------------------------|
-| POST   | `/api/auth/register`            | Registro de usuario (sin contraseña) |
-| GET    | `/api/auth/assign-password`     | Asignación de contraseña con token |
-| POST   | `/api/auth/login`               | Inicio de sesión, retorna JWT     |
+| Método | Endpoint                    | Descripción                           |
+|--------|-----------------------------|---------------------------------------|
+| POST   | `/api/auth/register`        | Registro de usuario (sin contraseña)  |
+| POST   | `/api/auth/assign-password` | Asignación de contraseña con token    |
+| POST   | `/api/auth/login`           | Inicio de sesión, retorna JWT         |
+| POST   | `/api/auth/forgot-password` | Olvida el Password, retorna JWT       |
+| POST   | `/api/auth/reset-password`  | Actualización de contraseña con token |
 
 ## 📧 Pruebas
 

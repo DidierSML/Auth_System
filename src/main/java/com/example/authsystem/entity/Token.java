@@ -25,7 +25,7 @@ public class Token {
     private String token;
 
     @Enumerated(EnumType.STRING)
-    private TokenType type; // VERIFICACION, RECUPERACION
+    private TokenType type; // VERIFICATION, RECUPERATION
 
     private boolean used;
 
