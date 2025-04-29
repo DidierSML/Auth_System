@@ -99,6 +99,11 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(loginRequest.email())
                 .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
+        // Verificar si la contraseña es correcta usando el passwordEncoder
+        if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
+            throw new RuntimeException("Contraseña incorrecta");
+        }
+
         if (!user.isActive()) {
             throw new RuntimeException("Usuario inactivo");
         }
