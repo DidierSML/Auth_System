@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/api/user")
 @Tag(name = "Users", description = "User management Operations")
 public class UserController {
 
@@ -19,22 +19,19 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse register (@PathVariable (value = "id") Long id){
+
+        return userService.getUser(id);
+    }
+
     @GetMapping("/getAll")
-    @ResponseStatus(HttpStatus.CREATED)
+    @ResponseStatus(HttpStatus.OK)
     public List<UserResponse> getAllUsers (){
 
         return userService.getAllUsers();
-
     }
-
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public UserResponse register (Long id){
-
-        return userService.getUser(id);
-
-    }
-
 
 }
 
