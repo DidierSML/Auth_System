@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
 
         emailService.sendEmail(
                 user.getEmail(),
-                "Account Registered!",
+                "Cuenta Registrada!",
                 "Hi " + user.getFullName() + ",\n\n" +
                         "Para completar tu registro, haz clic en el siguiente enlace para asignar tu contraseña:\n" +
                         "http://localhost:8080/api/auth/assign-password?token= " + token.getToken() + "\n\n" +

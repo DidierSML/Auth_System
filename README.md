@@ -92,7 +92,7 @@ Una vez el proyecto esté corriendo localmente, puedes acceder a la documentaci�
         "password": "juan_contraseña_segura"
       }
 
-    [Respuesta]: Token de acceso temporal.
+    [Respuesta]: Token.
 
 ### 🔄 Endpoint que en caso de Olvidar la Contraseña
 
@@ -121,9 +121,31 @@ Una vez el proyecto esté corriendo localmente, puedes acceder a la documentaci�
 
 ## ⚙️ Variables de Entorno
 
-Este proyecto utiliza variables de entorno para proteger información sensible como:
+Para ejecutar el proyecto, necesitas configurar un archivo .env en la raíz del proyecto. Renombra el archivo .env.example a .env y configura las siguientes variables de entorno con "tus credenciales":
 
-- Credenciales de la base de datos
-- Clave secreta para la firma de tokens JWT
-- Configuración del servidor de correo
+    # 📚 Base de Datos
+    DB_URL=jdbc:mysql://localhost:3306/auth_system
+    DB_USER=root
+    DB_PASSWORD=admin_password
+    
+    # 🔑 JWT
+    JWT_SECRET=your_jwt_secret
+    
+    # ✉️ Configuración de Correo
+    MAIL_HOST=smtp.mailtrap.io
+    MAIL_PORT=587
+    MAIL_USER=your_mailtrap_user
+    MAIL_PASSWORD=your_mailtrap_password
+    MAIL_FROM=admin@demo.test
 
+📝 Explicación de Variables:
+
+  - DB_URL: URL de conexión a la base de datos MySQL.
+
+  - DB_USER y DB_PASSWORD: Credenciales para tu base de datos.
+
+  - JWT_SECRET: Clave secreta para firmar los tokens JWT.
+
+  - MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_FROM: Configuración para el servicio de correo (por ejemplo, Mailtrap).
+
+📍 Consejo: No olvides reemplazar estos valores por tus credenciales personales o por las de los servicios que utilices, como Mailtrap, Gmail, etc. Una vez configurado el archivo .env, podrás ejecutar la aplicación con Docker o directamente en tu entorno local.
