@@ -112,7 +112,7 @@ public class AuthServiceImpl implements AuthService {
             throw new RuntimeException("Usuario inactivo");
         }
 
-        String jwt = jwtService.generateToken(String.valueOf(user));
+        String jwt = jwtService.generateToken(user.getEmail());//Mediante Email
         return new LoginResponse(jwt);
     }
 

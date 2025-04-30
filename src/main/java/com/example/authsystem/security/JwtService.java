@@ -42,8 +42,11 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        String username = extractClaim(token, Claims::getSubject);
+        System.out.println("🪪 Email extraído del token: " + username); // Verificación
+        return username;
     }
+
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());
