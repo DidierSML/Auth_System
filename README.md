@@ -26,15 +26,15 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 
 ## 🔁 Endpoints principales
 
-| Método | Endpoint                    | Descripción                                                             |
-|--------|-----------------------------|-------------------------------------------------------------------------|
-| POST   | `/api/auth/register`        | Registro de usuario (sin contraseña)                                    |
-| POST   | `/api/auth/assign-password` | Asignación de contraseña con token                                      |
-| POST   | `/api/auth/login`           | Inicio de sesión, retorna JWT                                           |
-| POST   | `/api/auth/forgot-password` | Olvida el Password, retorna JWT                                         |
-| POST   | `/api/auth/reset-password`  | Actualización de contraseña con token                                   |
-| GET    | `/api/user/{id}`            | Obtiene usuario por su Id pasando el Bearer Token obtenido en el Login  |
-| GET    | `/api/user/getAll`          | Obtiene todos los usuarios pasando el Bearer Token obtenido en el Login |
+| Método | Endpoint                    | Descripción                                                              |
+|--------|-----------------------------|--------------------------------------------------------------------------|
+| POST   | `/api/auth/register`        | Registro de usuario (sin contraseña)                                     |
+| POST   | `/api/auth/assign-password` | Asignación de contraseña con token                                       |
+| POST   | `/api/auth/login`           | Inicio de sesión, retorna JWT                                            |
+| POST   | `/api/auth/forgot-password` | Olvida el Password, retorna JWT                                          |
+| POST   | `/api/auth/reset-password`  | Actualización de contraseña con token                                    |
+| GET    | `/api/user/{id}`            | Obtiene un usuario por su Id usando el Bearer Token obtenido en el Login |
+| GET    | `/api/user/getAll`          | Obtiene todos los usuarios usando el Bearer Token obtenido en el Login   |
 
 ## 📧 Pruebas
 
@@ -150,4 +150,4 @@ Para ejecutar el proyecto, necesitas configurar un archivo .env en la raíz del 
 
   - MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_FROM: Configuración para el servicio de correo (por ejemplo, Mailtrap).
 
-📍 Consejo: No olvides reemplazar estos valores por tus credenciales personales o por las de los servicios que utilices, como Mailtrap, Gmail, etc. Una vez configurado el archivo .env, podrás ejecutar la aplicación con Docker o directamente en tu entorno local.
+📍 Consejo: "No olvides reemplazar estos valores por tus credenciales personales o por las de los servicios que utilices, como Mailtrap, Gmail, etc. Una vez configurado el archivo .env, podrás ejecutar la aplicación con Docker o directamente en tu entorno local".

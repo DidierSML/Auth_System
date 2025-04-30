@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>authsystem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>auth_system</artifactId>
+	<version>0.0.1</version>
 	<name>authsystem</name>
 	<description>Spring Boot-based user authentication system with registration, email validation, password reset, and JWT login.</description>
 	<url/>
