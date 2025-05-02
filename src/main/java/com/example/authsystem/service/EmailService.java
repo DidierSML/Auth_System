@@ -10,11 +10,14 @@ public class EmailService {
 
     private final JavaMailSender javaMailSender;
 
-    @Value("${mail.from}")
-    private String mailFrom;
+    private final String mailFrom;
 
-    public EmailService(JavaMailSender javaMailSender) {
+    public EmailService(
+            JavaMailSender javaMailSender,
+            @Value("${mi-app.mail.from}") String mailFrom
+    ) {
         this.javaMailSender = javaMailSender;
+        this.mailFrom = mailFrom;
     }
 
     public void sendEmail (String recipient, String subject, String body){

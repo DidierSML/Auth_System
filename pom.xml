@@ -11,7 +11,7 @@
 	<groupId>com.example</groupId>
 	<artifactId>auth_system</artifactId>
 	<version>0.0.1</version>
-	<name>authsystem</name>
+	<name>auth_system</name>
 	<description>Spring Boot-based user authentication system with registration, email validation, password reset, and JWT login.</description>
 	<url/>
 	<licenses>
@@ -47,6 +47,13 @@
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+
+		<!-- test environment  -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
