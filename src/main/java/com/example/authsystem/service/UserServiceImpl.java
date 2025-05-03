@@ -25,6 +25,7 @@ public class UserServiceImpl implements UserService {
                         ("El usuario con " + id + " no existe en nuestro sistema"));
 
         return new UserResponse(
+                existingUser.getId(),
                 existingUser.getFullName(),
                 existingUser.getEmail(),
                 existingUser.isActive()
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 
             UserResponse userResponse = new UserResponse
                     (
+                            user.getId(),
                             user.getFullName(),
                             user.getEmail(),
                             user.isActive()
