@@ -43,7 +43,7 @@ public class JwtService {
 
     public String extractUsername(String token) {
         String username = extractClaim(token, Claims::getSubject);
-        System.out.println("🪪 Email extraído del token: " + username); // Verificación
+        System.out.println("Email extraído del token: " + username); // Verificación
         return username;
     }
 

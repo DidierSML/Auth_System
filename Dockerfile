@@ -1,18 +1,15 @@
-FROM openjdk:17-jdk-slim
-ARG JAR_FILE=target/auth_system-0.0.1.jar
-COPY ${JAR_FILE} auth_system_app.jar
-EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "auth_system_app.jar"]
-
 # ---- Fase de Construcción con Maven ----
 FROM maven:3.9.7-eclipse-temurin-17 AS builder
 WORKDIR /app
 
-# 1. Copia el POM y descarga dependencias (cache)
+# Copia del .env.example como referencia (documentación)
+COPY .env.example .env.example
+
+# Copia del POM y descarga dependencias (cache)
 COPY pom.xml .
 RUN mvn dependency:go-offline -B
 
-# 2. Copia el código fuente y construye el JAR
+# Copia el código fuente y construcción del JAR
 COPY src ./src
 RUN mvn clean package -DskipTests
 
@@ -20,11 +17,12 @@ RUN mvn clean package -DskipTests
 FROM eclipse-temurin:17-jre-jammy
 WORKDIR /app
 
-# Copia el JAR desde la fase de construcción
-COPY --from=builder /app/target/*.jar app.jar
+# Nombre del JAR (auth_system_app.jar)
+ARG JAR_FILE=auth_system-0.0.1.jar
+COPY --from=builder /app/target/${JAR_FILE} auth_system_app.jar
 
-# Puerto expuesto (debe coincidir con tu aplicación Spring Boot)
+# Copia del .env.example al contenedor (solo como guía)
+COPY --from=builder /app/.env.example .env.example
+
 EXPOSE 8080
-
-# Comando de inicio
 ENTRYPOINT ["java", "-jar", "auth_system_app.jar"]

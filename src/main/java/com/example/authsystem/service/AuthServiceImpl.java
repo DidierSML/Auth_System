@@ -3,6 +3,7 @@ package com.example.authsystem.service;
 import com.example.authsystem.dto.*;
 import com.example.authsystem.entity.Token;
 import com.example.authsystem.entity.User;
+import com.example.authsystem.exception.NotFoundCustomException;
 import com.example.authsystem.repository.AuthRepository;
 import com.example.authsystem.repository.UserRepository;
 import com.example.authsystem.security.JwtService;
@@ -34,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
     public void registerUser(UserRegisterRequest request) {
 
         if (userRepository.findByEmail(request.email()).isPresent()) {
-            throw new RuntimeException("The user is already registered");
+            throw new NotFoundCustomException("This user is already registered");
         }
 
         User user = new User();
@@ -69,10 +70,10 @@ public class AuthServiceImpl implements AuthService {
     public void assignPassword(AssignPasswordRequest request) {
 
         Token token = authRepository.findByToken(request.token())
-                .orElseThrow(() -> new RuntimeException("Token inválido"));
+                .orElseThrow(() -> new NotFoundCustomException("Invalid Token"));
 
         if (token.isUsed() || token.getExpirationDate().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("Token inválido o expirado");
+            throw new NotFoundCustomException("Invalid or Expired Token");
         }
 
         User user = token.getUser();
@@ -101,15 +102,15 @@ public class AuthServiceImpl implements AuthService {
         );
 
         User user = userRepository.findByEmail(loginRequest.email())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new NotFoundCustomException("User not found"));
 
         // Verificar si la contraseña es correcta usando el passwordEncoder
         if (!passwordEncoder.matches(loginRequest.password(), user.getPassword())) {
-            throw new RuntimeException("Contraseña incorrecta");
+            throw new NotFoundCustomException("Incorrect Password");
         }
 
         if (!user.isActive()) {
-            throw new RuntimeException("Usuario inactivo");
+            throw new NotFoundCustomException("Inactive user");
         }
 
         String jwt = jwtService.generateToken(user.getEmail());//Mediante Email
@@ -121,13 +122,13 @@ public class AuthServiceImpl implements AuthService {
     public void forgotPassword(ForgotPasswordRequest request) {
 
         User user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new NotFoundCustomException("User not found"));
 
         Token token = new Token();
         token.setToken(UUID.randomUUID().toString());
         token.setType(TokenType.RECUPERATION);
         token.setCreationDate(LocalDateTime.now());
-        token.setExpirationDate(LocalDateTime.now().plusHours(2));
+        token.setExpirationDate(LocalDateTime.now().plusHours(1));
         token.setUsed(false);
         token.setUser(user);
 
@@ -149,10 +150,10 @@ public class AuthServiceImpl implements AuthService {
     public void resetPassword(ResetPasswordRequest request) {
 
         Token token = authRepository.findByToken(request.token())
-                .orElseThrow(() -> new RuntimeException("Token inválido"));
+                .orElseThrow(() -> new NotFoundCustomException("Invalid Token"));
 
         if (token.isUsed() || token.getExpirationDate().isBefore(LocalDateTime.now())) {
-            throw new RuntimeException("Token inválido o expirado");
+            throw new NotFoundCustomException("Invalid or Expired Token");
         }
 
         User user = token.getUser();
