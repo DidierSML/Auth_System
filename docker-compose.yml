@@ -9,8 +9,8 @@ services:
     restart: unless-stopped
     environment:
       # Configuración de Base de Datos
-      USER_DB: ${USER_DB}
-      PASSWORD_DB: ${PASSWORD_DB}
+      SPRING_DATASOURCE_USERNAME: ${USER_DB}
+      SPRING_DATASOURCE_PASSWORD: ${PASSWORD_DB}
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/auth_system?useSSL=false&serverTimezone=UTC
 
       # Configuración JWT
@@ -38,15 +38,13 @@ services:
     restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD} #Config con .env
-      MYSQL_DATABASE: auth_system
-      MYSQL_USER: ${USER_DB}
-      MYSQL_PASSWORD: ${PASSWORD_DB}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
       - "3307:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${USER_DB}", "-p${PASSWORD_DB}"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-p${DB_ROOT_PASSWORD}"]
       interval: 5s
       timeout: 3s
       retries: 10
