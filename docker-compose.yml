@@ -41,6 +41,8 @@ services:
       MYSQL_DATABASE: auth_system
       MYSQL_USER: ${USER_DB}
       MYSQL_PASSWORD: ${PASSWORD_DB}
+    ports:
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
