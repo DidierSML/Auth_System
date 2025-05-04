@@ -22,7 +22,7 @@ public class JwtService {
 
     @PostConstruct
     public void init() {
-        // Cargar y decodificar la clave secreta desde el application.properties
+        // Carga y decodifica la clave secreta desde el application.properties
         byte[] decodedKey = Decoders.BASE64.decode(secretKeyBase64);
         this.secretKey = Keys.hmacShaKeyFor(decodedKey);
     }
@@ -42,8 +42,11 @@ public class JwtService {
     }
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        String username = extractClaim(token, Claims::getSubject);
+        System.out.println("Email extraído del token: " + username); // Verificación
+        return username;
     }
+
 
     private boolean isTokenExpired(String token) {
         return extractExpiration(token).before(new Date());

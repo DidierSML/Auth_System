@@ -26,13 +26,15 @@ Este proyecto es una implementación sencilla de un sistema de autenticación y 
 
 ## 🔁 Endpoints principales
 
-| Método | Endpoint                    | Descripción                           |
-|--------|-----------------------------|---------------------------------------|
-| POST   | `/api/auth/register`        | Registro de usuario (sin contraseña)  |
-| POST   | `/api/auth/assign-password` | Asignación de contraseña con token    |
-| POST   | `/api/auth/login`           | Inicio de sesión, retorna JWT         |
-| POST   | `/api/auth/forgot-password` | Olvida el Password, retorna JWT       |
-| POST   | `/api/auth/reset-password`  | Actualización de contraseña con token |
+| Método | Endpoint                    | Descripción                                                              |
+|--------|-----------------------------|--------------------------------------------------------------------------|
+| POST   | `/api/auth/register`        | Registro de usuario (sin contraseña)                                     |
+| POST   | `/api/auth/assign-password` | Asignación de contraseña con token                                       |
+| POST   | `/api/auth/login`           | Inicio de sesión, retorna JWT                                            |
+| POST   | `/api/auth/forgot-password` | Olvida el Password, retorna JWT                                          |
+| POST   | `/api/auth/reset-password`  | Actualización de contraseña con token                                    |
+| GET    | `/api/user/{id}`            | Obtiene un usuario por su Id usando el Bearer Token obtenido en el Login |
+| GET    | `/api/user/getAll`          | Obtiene todos los usuarios usando el Bearer Token obtenido en el Login   |
 
 ## 📧 Pruebas
 
@@ -76,7 +78,7 @@ Una vez el proyecto esté corriendo localmente, puedes acceder a la documentaci�
 
       {
         "token": "7b95bcd4-d647-4ef1-92bf-a33cbff5c5f0",
-        "newPassword": "juan_contraseña_segura"
+        "newPassword": "juanContraseña1"
       }
 
     [Respuesta]: Mensaje en Postman / Mensaje via Email.
@@ -89,10 +91,26 @@ Una vez el proyecto esté corriendo localmente, puedes acceder a la documentaci�
 
       {
         "email": "juanperez@example.com",
-        "password": "juan_contraseña_segura"
+        "password": "juanContraseña1"
       }
 
-    [Respuesta]: Token.
+    [Respuesta]: Bearer Token de acceso a recursos securizados de tipo GET.
+
+### 📂Obtener Usuario por {Id} (usando Bearer Token obtenido)
+
+    ```http
+    [GET] localhost:8080/api/user/3
+
+      Auth Type:
+        Bearer Token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaWNoYWVscEBleGFtcGxlLmNvbSIsImlhd
+
+### 📂Obtener Usuarios (usando Bearer Token obtenido)
+
+    ```http
+    [GET] localhost:8080/api/user/getAll
+
+      Auth Type:
+        Bearer Token: eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtaWNoYWVscEBleGFtcGxlLmNvbSIsImlhd
 
 ### 🔄 Endpoint que en caso de Olvidar la Contraseña
 
@@ -114,10 +132,10 @@ Una vez el proyecto esté corriendo localmente, puedes acceder a la documentaci�
 
       {
         "token": "03a6c2d1-8611-4db3-9ad3-15f7067401ac",
-        "newPassword": "juan_contraseña_segura_actualizada"
+        "newPassword": "juanContraseñaActualizad12"
       }
 
-    [Respuesta]: Mensaje en Postman / Mensaje via Email.
+    [Respuesta]: Mensaje en Postman / Mensaje confirmatorio via Email.
 
 ## ⚙️ Variables de Entorno
 
@@ -132,7 +150,6 @@ Para ejecutar el proyecto, necesitas configurar un archivo .env en la raíz del 
     JWT_SECRET=your_jwt_secret
     
     # ✉️ Configuración de Correo
-    MAIL_HOST=smtp.mailtrap.io
     MAIL_PORT=587
     MAIL_USER=your_mailtrap_user
     MAIL_PASSWORD=your_mailtrap_password
@@ -148,4 +165,4 @@ Para ejecutar el proyecto, necesitas configurar un archivo .env en la raíz del 
 
   - MAIL_HOST, MAIL_PORT, MAIL_USER, MAIL_PASSWORD, MAIL_FROM: Configuración para el servicio de correo (por ejemplo, Mailtrap).
 
-📍 Consejo: No olvides reemplazar estos valores por tus credenciales personales o por las de los servicios que utilices, como Mailtrap, Gmail, etc. Una vez configurado el archivo .env, podrás ejecutar la aplicación con Docker o directamente en tu entorno local.
+📍 Consejo: "No olvides reemplazar estos valores por tus credenciales personales o por las de los servicios que utilices, como Mailtrap, Gmail, etc. Una vez configurado el archivo .env, podrás ejecutar la aplicación con Docker o directamente en tu entorno local".
