@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  auth-system-app:
+    build:
+      context: ./authsystem  # Ruta a tu proyecto
+      dockerfile: Dockerfile
+    container_name: auth_system_app
+    restart: unless-stopped
+    environment:
+      # Configuración de Base de Datos
+      USER_DB: ${USER_DB}
+      PASSWORD_DB: ${PASSWORD_DB}
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/auth_system?useSSL=false&serverTimezone=UTC
+
+      # Configuración JWT
+      JWT_SECRET: ${JWT_SECRET}
+
+      # Configuración del Email
+      MAIL_PORT: ${MAIL_PORT}
+      MAIL_USER: ${MAIL_USER}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+      MAIL_FROM: ${MAIL_FROM}
+
+      # Otras configuraciones de Spring
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - auth-network
+
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_DATABASE: auth_system
+      MYSQL_USER: ${USER_DB}
+      MYSQL_PASSWORD: ${PASSWORD_DB}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u${USER_DB}", "-p${PASSWORD_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+      - auth-network
+
+volumes:
+  mysql_data:
+
+networks:
+  auth-network:
+    driver: bridge
