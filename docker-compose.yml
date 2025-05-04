@@ -3,7 +3,7 @@ version: '3.8'
 services:
   auth-system-app:
     build:
-      context: ./authsystem  # Ruta a tu proyecto
+      context: .  # Ruta actual
       dockerfile: Dockerfile
     container_name: auth_system_app
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
     container_name: mysql_db
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: '5gH$kL9!pQwE'
       MYSQL_DATABASE: auth_system
       MYSQL_USER: ${USER_DB}
       MYSQL_PASSWORD: ${PASSWORD_DB}
