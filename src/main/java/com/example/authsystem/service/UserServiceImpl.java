@@ -4,7 +4,6 @@ import com.example.authsystem.dto.UserResponse;
 import com.example.authsystem.entity.User;
 import com.example.authsystem.exception.NotFoundCustomException;
 import com.example.authsystem.repository.UserRepository;
-import com.example.authsystem.security.JwtService;
 import com.example.authsystem.service.interfaces.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

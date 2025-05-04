@@ -48,7 +48,7 @@ public class User implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {////////versions
+    public boolean isAccountNonExpired() {
         return true;
     }
 
